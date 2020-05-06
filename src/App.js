@@ -1,73 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink
+} from 'react-router-dom';
 
-import UserTable from './Components/Crud/UserTable';
+
+// componentes
+import ExampleCrud from './Components/Main/ExampleCrud';
+import Prototipo from './Components/Prototipo/main/main';
 
 
 
-import { v4 as uuidv4 } from 'uuid';
-import AddUserForm from './Components/Crud/Form/AddUserForm';
-import EditUserForm from './Components/Crud/Form/EditUserForm';
+
 
 function App() {
 
-  const userData = [
-    { id: uuidv4(), name: 'Tania', username: 'tania00232' },
-    { id: uuidv4(), name: 'pepe', username: 'pepe5701' },
-    { id: uuidv4(), name: 'ben', username: 'ben45' }
-  ]
-
-  // state
-  const [users, setUsers] = useState(userData);
-
-  // Agregar usuarios
-
-  const addUsers = (user) => {
-    user.id = uuidv4()
-    setUsers([
-      ...users,
-      user
-    ])
-  }
-
-  // eliminar usuarios
-
-  const deleteUser = (id) => {
-    setUsers(users.filter(user => user.id !== id))
-  }
-
-  // editar usuarios
-
-  const [editing, setEditing] = useState(false);
-
-
-
-
   return (
-		<div className='container'>
-			<h1>CRUD App with Hooks</h1>
-			<div className='flex-row'>
-				<div className='flex-large'>
-					{editing ? (
-						<div>
-							<h2>Edit user</h2>
-							
-						</div>
-					) : (
-						<div>
-							<h2>Add user</h2>
-							<AddUserForm addUser={addUsers} />
-						</div>
-					)}
-				</div>
-				<div className='flex-large'>
-					<h2>View users</h2>
-					<UserTable users={users} deleteUser={deleteUser} />
-				</div>
-			</div>
-		</div>
-	);
+
+    <Router>
+      <div className="container mt-5">
+        <div className="btn-group ">
+          <NavLink to="/" exact className="btn btn-dark mr-5" activeClassName='active' >
+            Inicio</NavLink>
+        
+        <NavLink to="/example/crud" exact className="btn btn-dark mr-5" activeClassName='active' >
+          Crud Example</NavLink>
+        <NavLink to="/prototipo" exact className="btn btn-dark mr-5" activeClassName='active' >
+          Prototipo</NavLink>
+          </div>
+
+      </div>
+      <hr />
+      <Switch>
+        <Route path="/example/crud" exact>
+          <ExampleCrud />
+        </Route>
+        <Route path="/prototipo" exact>
+          <Prototipo />
+        </Route>
+        <Route path="/" exact>
+          este es el inicio
+        </Route>
+      </Switch>
+    </Router>
+
+  );
 };
 
 

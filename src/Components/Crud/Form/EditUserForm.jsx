@@ -1,12 +1,14 @@
 import React from 'react';
 import UserForm from './UserForm';
 
-const editUserForm = (props) => {
+const EditUserForm = (props) => {
 	const onSubmit = (data, e) => {
-		props.addUser(data);
+		data.id = props.currentUser.id;
+		props.edit(props.currentUser.id, data);
 		e.target.reset();
 	};
-	return <UserForm onSubmit={onSubmit} />;
+
+	return <UserForm user={props.currentUser} onSubmit={onSubmit} />;
 };
 
-export default editUserForm;
+export default EditUserForm;
